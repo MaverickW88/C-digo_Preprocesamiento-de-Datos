@@ -23,8 +23,6 @@ el resto del analisis se imprime en consola igual.
 import os
 import numpy as np
 import pandas as pd
-import matplotlib
-matplotlib.use("Agg")  # backend sin ventana, para poder correr el script en cualquier entorno
 import matplotlib.pyplot as plt
 
 CARPETA_ACTUAL = os.path.dirname(os.path.abspath(__file__))
@@ -51,8 +49,9 @@ print(datos2.describe())
 datos2.boxplot(column=["ingresos"])
 plt.title("Boxplot de 'ingresos' (con los 3 valores atipicos)")
 plt.savefig(os.path.join(CARPETA_FIGURAS, "boxplot_ingresos_con_atipicos.png"), dpi=150)
+plt.show()  # muestra la ventana; el script continua al cerrarla
 plt.close()
-
+   
 # ---------------------------------------------------------------------------
 # 4. Aislar los 3 valores atipicos: primero viendo los que estan arriba de
 #    200,000 (para apreciar el tercero, que sin esos dos se ve mejor)...
@@ -61,6 +60,7 @@ auxiliar = datos2[datos2["ingresos"] < 200000]
 auxiliar.boxplot(column=["ingresos"])
 plt.title("Boxplot de 'ingresos' < 200,000 (se aprecia el 3er atipico)")
 plt.savefig(os.path.join(CARPETA_FIGURAS, "boxplot_ingresos_menor_200000.png"), dpi=150)
+plt.show()  # muestra la ventana; el script continua al cerrarla
 plt.close()
 
 # ...y luego mostrando los renglones con ingresos por encima de 50,000, que
@@ -132,6 +132,7 @@ print(f"\nSesgo (skew) de 'ingresos' sin negativos: {sesgo:.4f} "
 plt.hist(datos2_no_negativos["ingresos"])
 plt.title("Histograma de 'ingresos' (antes del logaritmo)")
 plt.savefig(os.path.join(CARPETA_FIGURAS, "histograma_ingresos_antes_log.png"), dpi=150)
+plt.show()  # muestra la ventana; el script continua al cerrarla
 plt.close()
 
 # Se suma 1 antes del logaritmo para evitar log(0) = -infinito en los
@@ -141,6 +142,7 @@ datos2_no_negativos["log_ingresos"] = (datos2_no_negativos["ingresos"] + 1).tran
 plt.hist(datos2_no_negativos["log_ingresos"])
 plt.title("Histograma de 'log_ingresos' (despues del logaritmo)")
 plt.savefig(os.path.join(CARPETA_FIGURAS, "histograma_log_ingresos_despues_log.png"), dpi=150)
+plt.show()  # muestra la ventana; el script continua al cerrarla
 plt.close()
 
 print("\ndescribe() antes y despues de la transformacion logaritmica:")
